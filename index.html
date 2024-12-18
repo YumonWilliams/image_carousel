@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Carousel</title>
+</head>
+<body>
+    <h1>Array Study</h1>
+    <br/>
+ 
+    <div style = "background-color: lightskyblue">
+        <h2>Press the next or previous buttons to increment through an array of [10, 20, 30]:</h2>
+        <!-- This is displaying the current index of the element-->
+        <div>
+            <p>Element in the array:
+                <p id="displayArray"></p>
+            </p>
+        </div>
+
+        <!-- This button is decrementing the current index.-->
+        <button id = "prevButton">
+        Previous
+        </button>
+        
+        <!-- This button is incrementing the current index.-->
+        <button id ="nextButton">
+        Next
+        </button>
+
+        <p>-----------------------------------------------------------------------------------</p>
+
+        <h2>Press the next or previous array to increment through the array. You can add to the array by pressing the number buttons:</h2>
+
+        <!--This is displaying the currentIndex value of array-->
+        <div>
+            <p>What Boxes of Ammunition do you have:
+                <p id = "displayArray2"></p>
+            </p> 
+        </div>
+
+        <!-- This button is decremening the current index.-->
+        <button id = "prevButton2">
+        Prev
+        </button>
+
+        <!-- This button is incrementing the current index.-->
+        <button id = "nextButton2">
+        Next
+        </button>
+
+        <!--These buttons will allow you to add more entries into the array.-->
+
+        <br/>
+        <p>+++++++++++++++++++++++++++++++++++++++++++++++++++++</p>
+        <div>
+            <p id = "ammoCollection"></p>           
+            <u1>
+                <li id = "nineCount">9MM:
+
+                </li>
+                <li id = "twentyCount">.22 LR:
+
+                </li>
+                <li id = "thirtyCount">.38 Special:
+
+                </li>
+                <li id = "fiveCount">5.56: 
+
+                </li>
+                <li id = "sevenCount">7.62:
+
+                 </li>
+                <li id = "twelveCount">12 Guage: 
+                    
+                </li>
+            </u1>
+        </div>
+
+        <p>Keep track of your ammunition add it to your inventory:</p>
+
+        <div style="background-color: greenyellow;">
+            <button id = "appendNine">
+            9MM
+            </button>
+    
+            <button id = "appendTwentyTwo">
+            .22 LR
+            </button>
+    
+            <button id = "appendThirtyEight">
+            .38 Special   
+            </button>
+    
+            <button id = "appendFiveSix">
+            5.56    
+            </button>
+    
+            <button id = "appendSevenSix">
+            7.62  
+            </button>
+    
+            <button id = "appendTwelve">
+            12 Guage
+            </button>
+
+        </div>
+
+        <br/>
+        <div style="background-color: red;">
+            <button id = "clearArray">
+            Clear
+            </button>
+
+            <!--This button will loop through the current array and check to see how many of single ammunition are within the array and the displayed it in a crude table. -->
+            <button id = "updateAmmo">
+            Update Ammo Count!
+            </button>
+        </div>
+
+        </div>
+        
+       
+    </div>
+
+    <script>
+        //Sets what element the array dsiplays upon loading the page. In this case it will start on the first element and dispaly "10"
+        let currentIndex = 0;
+
+        //The array is set to a const. In this instant the array does need to be changed and only incremented through and displayed. Would I need to use [let = myArray] instead if I need to change the array?
+        const numbersArray = [10, 20, 30];
+        
+        //This grabs the id of the previous button. 
+        const prevButton  =  document.getElementById("prevButton");
+
+        //This grabs the id of the next button. 
+        const nextButton  = document.getElementById("nextButton");
+
+        //This grabs the id of the <p> elemenet that is receiving the array as its text. Which is changed by the updateDisplay function every time the buttons are clicked.
+        const displayArray = document.getElementById("displayArray");
+
+
+        //This function when called displays the currentIndex calue as text with the <p> tag with the displayArray id. 
+        function updateDisplay() {
+            displayArray.textContent = numbersArray[currentIndex];
+        }; 
+        
+        //This is an event listener for the previous button. When it is clicked it will decrement the currentIndex by one element within the array. When it reaches the the first array it will loop around to the last and continue to decrement the currentIndex.
+        prevButton.addEventListener("click", () => {
+
+            //the currentIndex is decremented by one element within the array.
+           currentIndex = (currentIndex - 1 + numbersArray.length) % numbersArray.length;
+           
+           //Then updateDisplay() function is called which displays the value of the currentIndex after the button has been clicked. 
+            updateDisplay();
+        });
+
+        //This an event listener for the next button. When it is clicked it will increment the currentIndex by one element within the array. When it reaches the last array it will loop around to the first and 
+        nextButton.addEventListener("click", () => {
+
+            //the currentIndex is incremented by one element within the array.
+            currentIndex = (currentIndex + 1) % numbersArray.length;
+            
+            //The updateDisplay() function is called which displays the value of the currentIndex after the button has been clicked.
+            updateDisplay();
+        });
+
+       
+        //This displays the current index when the page loads initally. 
+        updateDisplay();
+    </script>
+    <script>
+        //This sets the initial Index that is displayed. In this case I want it to display empty as its first element. Once the array is irrated some conditional statements will keep it from showing empty until the clear button pressed. 
+        let currentIndex2 = [0];
+
+        //this stores the values in an array. This will be added onto as the buttons are preassed. For now the previous and next buttons will display not empty and empty. 
+        let ammoArray = ["Empty","Not empty"];
+
+       
+
+        
+
+         //This where the current index value will be displayed.
+        const displayArray2 = document.getElementById("displayArray2");
+
+
+        //BUTTONS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //BUTTONS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //BUTTONS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+        //retrieves the Prev and Next buttons IDs "prevButton2 and NextButton2"
+        const prevButton2 = document.getElementById("prevButton2");
+        const nextButton2 = document.getElementById("nextButton2");
+
+        //retrieves the 9MM buttons ID "appendNine"
+        const appendNineButton = document.getElementById("appendNine");
+
+        //retrieves the .22 LR buttons ID "appendTwentyTwo"
+        const appendTwentyTwoButton = document.getElementById("appendTwentyTwo");
+
+        //retrieves the .38 Special buttons ID "appendThirtyEighty"
+        const appendThirtyEightButton = document.getElementById("appendThirtyEight");
+
+        //retrieves the 556 buttons ID "appendFiveSix"
+        const appendFiveSixButton = document.getElementById("appendFiveSix");
+
+        const appendSevenSixButton = document.getElementById("appendSevenSix");
+
+        //retrieves the 12 Guage buttons ID "appendTwelve"
+        const appendTwelveButton = document.getElementById("appendTwelve");
+
+        const ammoCollection = document.getElementById("ammoCollection");
+
+        //retrieves the Clear buttons ID "clearArray"
+        const clearArray = document.getElementById("clearArray");
+
+        const updateAmmo = document.getElementById("updateAmmo");
+
+        updateAmmo.addEventListener("click", () => {
+            let ammoCountNine = 0;
+            let ammoCountTwenty = 0;
+            let ammoCountThirty = 0;
+            let ammoCountFive = 0;
+            let ammoCountSeven = 0;
+            let ammoCountTwelve = 0;
+
+            setAmmoCount();
+        });
+
+        let trueArray = [""];
+
+        //Ammo count:
+        let ammoCountNine = 0;
+        let ammoCountTwenty = 0;
+        let ammoCountThirty = 0;
+        let ammoCountFive = 0;
+        let ammoCountSeven = 0;
+        let ammoCountTwelve = 0;
+
+
+        //FUNCTIONS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //FUNCTIONS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //FUNCTIONS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+        //This function is called when the user clicks the respective button. It will display the contents/status of the array. I want it first display empty which will be the first element in the array. If there is more elements (handled by a conditional) in the array it will display/log into the console "Not Empty.."
+        function updateDisplay2() {
+            displayArray2.textContent = ammoArray[currentIndex2];
+
+            let ammunitionLog = "AMMUNITION: ";
+
+            ammunitionLog += trueArray.join('');
+
+            ammoCollection.textContent = ammunitionLog;
+        };
+
+        
+
+        function setAmmoCount(){
+            //When this function is called it merges the string "9MM: " with the value of ammoCountNine. 
+
+            for (var i=0; i < trueArray.length; i++) {
+                if(trueArray[i] === "9MM | "){
+                    ammoCountNine++;
+                    let tableNine = "9MM: ";
+                    nineCount = document.getElementById('nineCount');
+                    
+                    tableNine += ammoCountNine;
+
+                    nineCount.textContent = tableNine;
+                    console.log(tableNine);
+                } else if(trueArray[i] === ".22 LR | ") {
+                    ammoCountTwenty++;
+                    let tableTwenty = ".22 LR: ";
+                    twentyCount = document.getElementById('twentyCount');
+
+                    tableTwenty += ammoCountTwenty;
+
+                    twentyCount.textContent = tableTwenty;
+                    console.log(tableTwenty);
+                } else if(trueArray[i] === ".38 Special | ") {
+                    ammoCountThirty++;
+                    let tableThirty = ".38: ";
+                    thirtyCount = document.getElementById('thirtyCount');
+
+                    tableThirty += ammoCountThirty;
+
+                    thirtyCount.textContent = tableThirty;
+                    console.log(tableThirty);
+                } else if(trueArray[i] === "5.56 | ") {
+                    ammoCountFive++;
+                    let tableFive = "5.56: ";
+                    fiveCount = document.getElementById('fiveCount');
+
+                    tableFive += ammoCountFive;
+                    
+                    fiveCount.textContent = tableFive;
+                } else if(trueArray[i] === "7.62 | ") {
+                    ammoCountSeven++;
+                    let tableSeven = "7.62: ";
+                    sevenCount = document.getElementById('sevenCount');
+
+                    tableSeven += ammoCountSeven;
+
+                    sevenCount.textContent = tableSeven;
+                } else if(trueArray[i] === "12 Guage | "){
+                    ammoCountTwelve++;
+                    let tableTwelve = "12 Guage: ";
+                    twelveCount = document.getElementById('twelveCount');
+
+                    tableTwelve += ammoCountTwelve;
+
+                    twelveCount.textContent = tableTwelve;
+                };
+                
+
+            };
+
+            
+
+           
+
+            let tableThirty = "38 Special: ";
+            thirtyCount = document.getElementById('thirtyCount');
+            tableThirty += ammoCountThirty;
+            console.log(tableThirty);
+
+            let tableFive = "5.56: ";
+            fiveCount = document.getElementById('fiveCount');
+            tableFive += ammoCountNine;
+            console.log(tableFive);
+
+            let tableSeven = "7.62: ";
+            sevenCount = document.getElementById('sevenCount');
+            tableSeven += ammoCountSeven;
+            console.log(tableSeven);
+
+            let tableTwelve = "12 Guage: ";
+            twelveCount = document.getElementById('twelveCount');
+            tableTwelve += ammoCountTwelve;
+            console.log(tableTwelve);
+        }
+
+        setAmmoCount();
+
+        //EVENT LISTENERS>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //EVENT LISTENERS>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //EVENT LISTENERS>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+        //an event listener that is waiting for the user to click the preivous button to decrement in the array.
+        prevButton2.addEventListener("click", () => {
+            currentIndex2 = (currentIndex2 - 1 + numbersArray.length) % numbersArray.length;
+            updateDisplay2();
+
+            console.log("previous" + currentIndex2)
+        });
+
+        //an event listener that is waiting for the user to click the next button to increment in the array.
+        nextButton2.addEventListener("click", () => {
+            currentIndex2 = (currentIndex2 + 1) % numbersArray.length;
+            updateDisplay2();
+
+            console.log("Next" + currentIndex2)
+        });
+
+        //an event listener that is waiting for the user to click the 9MM button to append a new element to the back of the array.
+        appendNineButton.addEventListener("click", () => { 
+            trueArray.push("9MM | ");
+            updateDisplay2();
+
+            console.log("9MM ammo added!");
+        });
+
+        //an event listener that is waiting for the user to click the 22 LR button to append a new element to the back of the array.
+        appendTwentyTwoButton.addEventListener("click", () => {
+            trueArray.push(".22 LR | ");
+            updateDisplay2();
+
+            console.log(".22 LR ammo added!");
+        });
+
+        //an event listener that is waiting for the user to click the .38 Special button to append a new element to the back of the array.
+        appendThirtyEightButton.addEventListener("click", () => {
+            trueArray.push(".38 Special | ")
+            updateDisplay2();
+
+            console.log(".38 Special ammo added!");
+        });
+
+        //an event listener that is waiting for the user to click the 556 button to append a new element to the back of the array.
+        appendFiveSixButton.addEventListener("click", () => {
+            trueArray.push("5.56 | ");
+            updateDisplay2();
+
+            console.log("5.56 ammo added!");
+        });
+
+        //an event listener that is waiting for the user to click the 762 button to append a new element to the back of the array.
+        appendSevenSixButton.addEventListener("click", () => {
+            trueArray.push("7.62 | ");
+            updateDisplay2();
+
+            console.log("7.62 ammo added!");
+        });
+
+        //an event listener that is waiting for the user to click the 12 Guage button to append a new element to the back of the array.
+        appendTwelveButton.addEventListener("click", () => {
+            trueArray.push("12 Guage | ")
+            updateDisplay2();
+
+            console.log("12 Guage ammo added!")
+        });
+
+        //an event listener that is waiting for the user to click the Clear  button to append a new element to the back of the array.
+        clearArray.addEventListener("click", () => {
+            trueArray = [];
+            updateDisplay2(); 
+
+            console.log("Clearing the array...")
+        });
+
+        //initally display "Empty" the first element in the array upon loading the page.
+        updateDisplay2();
+
+
+    </script>
+</body>
+</html>
